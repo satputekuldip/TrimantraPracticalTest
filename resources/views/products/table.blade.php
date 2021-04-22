@@ -5,24 +5,12 @@
             <th width="10">
 
             </th>
-            <th>
-                ID
-            </th>
-            <th>
-                Name
-            </th>
-            <th>
-                Description
-            </th>
-            <th>
-                Category
-            </th>
-            <th>
-                Photo
-            </th>
-            <th>
-                Actions
-            </th>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Category</th>
+            <th>Photo</th>
+            <th>Actions</th>
         </tr>
         </thead>
         <tbody>
@@ -69,5 +57,16 @@
             </tr>
         @endforeach
         </tbody>
+        <tfoot>
+        <tr>
+            <th></th>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Category</th>
+            <th>Photo</th>
+            <th>Action</th>
+        </tr>
+        </tfoot>
     </table>
 </div>

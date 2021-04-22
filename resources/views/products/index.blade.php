@@ -38,6 +38,18 @@
     </div>
 
 @endsection
+@section('styles')
+    <style>
+        tfoot input {
+            width: 100%;
+            padding: 3px;
+            box-sizing: border-box;
+        }
+        tfoot {
+            display: table-header-group;
+        }
+    </style>
+@endsection
 @section('scripts')
     @parent
     <script>
@@ -76,11 +88,35 @@
                 order: [[ 1, 'desc' ]],
                 pageLength: 100,
             });
-            let table = $('.datatable-Product:not(.ajaxTable)').DataTable({ buttons: dtButtons })
+            $('.datatable-Product tfoot th').each( function () {
+                var title = $(this).text();
+                $(this).html( '<input type="text" placeholder="Search '+title+'" />' );
+            } );
+
+            let table = $('.datatable-Product:not(.ajaxTable)').DataTable({
+                buttons: dtButtons,
+                initComplete: function () {
+                    // Apply the search
+                    this.api().columns().every( function () {
+                        var that = this;
+
+                        $( 'input', this.footer() ).on( 'keyup change clear', function () {
+                            if ( that.search() !== this.value ) {
+                                that
+                                    .search( this.value )
+                                    .draw();
+                            }
+                        } );
+                    } );
+                }
+            })
             $('a[data-toggle="tab"]').on('shown.bs.tab click', function(e){
                 $($.fn.dataTable.tables(true)).DataTable()
                     .columns.adjust();
             });
+
+
+
 
         })
 

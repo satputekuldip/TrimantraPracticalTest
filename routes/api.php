@@ -26,9 +26,7 @@ Route::middleware('auth:api')->group(function (){
 
     Route::resource('categories', App\Http\Controllers\API\CategoryAPIController::class);
 
-
+    Route::resource('products', App\Http\Controllers\API\ProductAPIController::class);
 });
 
 
-
-Route::resource('products', App\Http\Controllers\API\ProductAPIController::class);

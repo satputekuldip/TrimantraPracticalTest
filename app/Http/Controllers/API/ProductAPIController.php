@@ -4,10 +4,13 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Requests\API\CreateProductAPIRequest;
 use App\Http\Requests\API\UpdateProductAPIRequest;
+use App\Http\Resources\ProductsResources;
 use App\Models\Product;
 use App\Repositories\ProductRepository;
 use Illuminate\Http\Request;
 use App\Http\Controllers\AppBaseController;
+use InfyOm\Generator\Criteria\LimitOffsetCriteria;
+use Prettus\Repository\Criteria\RequestCriteria;
 use Response;
 
 /**
@@ -34,13 +37,12 @@ class ProductAPIController extends AppBaseController
      */
     public function index(Request $request)
     {
-        $products = $this->productRepository->all(
-            $request->except(['skip', 'limit']),
-            $request->get('skip'),
-            $request->get('limit')
-        );
+        $this->productRepository->pushCriteria(new RequestCriteria($request));
+        $this->productRepository->pushCriteria(new LimitOffsetCriteria($request));
 
-        return $this->sendResponse($products->toArray(), 'Products retrieved successfully');
+        $products = $this->productRepository->with('category')->paginate(1);
+
+        return $this->sendResponse($products, 'Products retrieved successfully');
     }
 
     /**

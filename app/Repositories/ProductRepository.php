@@ -3,7 +3,7 @@
 namespace App\Repositories;
 
 use App\Models\Product;
-use App\Repositories\BaseRepository;
+use Prettus\Repository\Eloquent\BaseRepository;
 
 /**
  * Class ProductRepository

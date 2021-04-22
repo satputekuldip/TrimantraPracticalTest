@@ -90,7 +90,9 @@
             });
             $('.datatable-Product tfoot th').each( function () {
                 var title = $(this).text();
-                $(this).html( '<input type="text" placeholder="Search '+title+'" />' );
+                if (title != '') {
+                    $(this).html('<input type="text" placeholder="Search ' + title + '" />');
+                }
             } );
 
             let table = $('.datatable-Product:not(.ajaxTable)').DataTable({

@@ -64,8 +64,8 @@
             <th>Name</th>
             <th>Description</th>
             <th>Category</th>
-            <th>Photo</th>
-            <th>Action</th>
+            <th></th>
+            <th></th>
         </tr>
         </tfoot>
     </table>

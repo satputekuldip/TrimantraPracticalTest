@@ -91,7 +91,11 @@
             $('.datatable-Product tfoot th').each( function () {
                 var title = $(this).text();
                 if (title != '') {
-                    $(this).html('<input type="text" placeholder="Search ' + title + '" />');
+                    if (title == 'Category') {
+                        $(this).html('{!! Form::select('category_id', $categories,null, ['class' => 'form-control','required']) !!}');
+                    } else {
+                        $(this).html('<input type="text" placeholder="Search ' + title + '" />');
+                    }
                 }
             } );
 
@@ -103,6 +107,13 @@
                         var that = this;
 
                         $( 'input', this.footer() ).on( 'keyup change clear', function () {
+                            if ( that.search() !== this.value ) {
+                                that
+                                    .search( this.value )
+                                    .draw();
+                            }
+                        } );
+                        $( 'select', this.footer() ).on( 'change clear', function () {
                             if ( that.search() !== this.value ) {
                                 that
                                     .search( this.value )

@@ -33,8 +33,10 @@ class ProductController extends AppBaseController
      */
     public function index()
     {
+        $categories = ['' => 'Select Category'];
+        $categories = array_merge($categories,Category::all()->pluck('name', 'name')->toArray());
         $products = Product::with(['media'])->get();
-        return view('products.index', compact('products'));
+        return view('products.index', compact('products','categories'));
     }
 
     /**
